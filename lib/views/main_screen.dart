@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:thetech_getx/components/api_constant.dart';
 import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/components/my_components.dart';
 import 'package:thetech_getx/components/my_string.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
+import 'package:thetech_getx/services/dio_services.dart';
 import 'package:thetech_getx/views/home_screen.dart';
 import 'package:thetech_getx/views/profile_screen.dart';
 
@@ -14,6 +18,8 @@ class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
+    DioServices().getMethode(ApiConstant.getHomeItems);
+
     var size = MediaQuery.of(context).size;
     var textTheme = Theme.of(context).textTheme;
     double bodyMargin = size.width / 10;
@@ -60,7 +66,10 @@ class MainScreen extends StatelessWidget {
                     MyStrings.shareTec,
                     style: textTheme.labelSmall,
                   ),
-                  onTap: () {},
+                  onTap: () async {
+                    //TODO برای اشتراک گزاری متنی که ما میخوایم در برنامه های دیگه
+                    await Share.share(MyStrings.shareText);
+                  },
                 ),
                 const Divider(
                   color: SolidColors.dividerColor,
@@ -70,7 +79,9 @@ class MainScreen extends StatelessWidget {
                     MyStrings.tecIngithub,
                     style: textTheme.labelSmall,
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    myLaunchUrl(MyStrings.techBlogGithubUrl);
+                  },
                 ),
                 const Divider(
                   color: SolidColors.dividerColor,

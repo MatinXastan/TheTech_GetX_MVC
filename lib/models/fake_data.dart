@@ -1,5 +1,3 @@
-import 'package:thetech_getx/models/data_model.dart';
-
 Map homePagePosterMap = {
   'imageAssets': 'assets/images/poster_test.png',
   'writer': 'ملیکا عزیزی',
@@ -7,6 +5,7 @@ Map homePagePosterMap = {
   'title': 'دوازده قدم برنامه نویسی یک دوره',
   'view': '251'
 };
+
 List<HashTagModel> tagList = [
   HashTagModel(title: 'جاوا'),
   HashTagModel(title: 'کاتلین'),
@@ -15,6 +14,11 @@ List<HashTagModel> tagList = [
   HashTagModel(title: 'iot'),
   HashTagModel(title: 'دارت'),
 ];
+
+class HashTagModel {
+  String title;
+  HashTagModel({required this.title});
+}
 
 List<HashTagModel> selectedTags = [];
 
@@ -279,3 +283,25 @@ List<BlogModel> blogList = [
       """,
       views: "256")
 ];
+
+class BlogModel {
+  int id;
+  String imageUrl;
+  String title;
+  String writer;
+  String writerImageUrl;
+  String date;
+  String content;
+  String views;
+
+  BlogModel({
+    required this.id,
+    required this.imageUrl,
+    required this.title,
+    required this.writer,
+    required this.writerImageUrl,
+    required this.date,
+    required this.content,
+    required this.views,
+  });
+}

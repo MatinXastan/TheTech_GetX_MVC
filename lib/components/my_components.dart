@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:thetech_getx/components/my_colors.dart';
 import 'package:thetech_getx/models/fake_data.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TechDivider extends StatelessWidget {
   const TechDivider({
@@ -78,7 +81,14 @@ class MainTags extends StatelessWidget {
   }
 }
 
-enum whichTags {
-  isHashtagMain,
-  isHashtagSelected,
+//TODO برای اینکه به یک لینکی در مرورگر بریم
+myLaunchUrl(String url) async {
+  var uri = Uri.parse(url);
+  if (await canLaunchUrl(uri)) {
+    await launchUrl(
+      uri,
+    );
+  } else {
+    log('could not launch ${uri.toString()}');
+  }
 }
