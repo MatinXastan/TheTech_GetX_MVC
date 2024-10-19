@@ -88,7 +88,7 @@ class _MyCatsState extends State<MyCats> {
                               }
                             });
                           },
-                          child: MainTags(
+                          child: RegesterMainTags(
                             textTheme: textTheme,
                             index: index,
                             /* onTap: (p0) {}, */
@@ -131,6 +131,7 @@ class _MyCatsState extends State<MyCats> {
                   child: SizedBox(
                     height: 85,
                     width: double.infinity,
+                    //TODO کار کردن با گریدویو
                     child: GridView.builder(
                       itemCount: selectedTags.length,
                       physics: const ClampingScrollPhysics(),

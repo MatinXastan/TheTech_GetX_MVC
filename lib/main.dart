@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:get/get.dart';
 import 'package:thetech_getx/components/my_colors.dart';
-import 'package:thetech_getx/views/main_screen.dart';
+import 'package:thetech_getx/views/main_screen/article_list_screen.dart';
+import 'package:thetech_getx/views/main_screen/main_screen.dart';
+import 'package:thetech_getx/views/single_screen.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -18,13 +21,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-
+      locale: Locale('fa'),
       theme: ThemeData(
         fontFamily: 'dana',
         brightness: Brightness.light,
@@ -106,6 +108,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.black,
                 // color: SolidColors.hintTextColor,
                 fontWeight: FontWeight.w700)),
+
         /* const TextTheme(
           displayLarge: TextStyle(
               fontFamily: 'dana',
@@ -144,16 +147,17 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      localizationsDelegates: const [
+      /* localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
       supportedLocales: const [
         Locale('fa', ''), // English
-      ],
+      ], */
       // home: const SplashScreen(),
-      home: MainScreen(),
+      //home: SingleScreen(),
+      home: ArticleListScreen(),
     );
   }
 }

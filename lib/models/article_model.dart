@@ -1,3 +1,5 @@
+import 'package:thetech_getx/components/api_constant.dart';
+
 class ArticleModel {
   String? id;
   String? title;
@@ -7,7 +9,7 @@ class ArticleModel {
   String? author;
   String? view;
   String? status;
-  // String? isFavorite;
+  //String? isFavorite;
   String? createdAt;
 
   ArticleModel({
@@ -19,14 +21,14 @@ class ArticleModel {
     this.author,
     this.view,
     this.status,
-    // this.isFavorite,
+    //this.isFavorite,
     this.createdAt,
   });
 
   ArticleModel.fromJson(Map<String, dynamic> element) {
     id = element["id"];
     title = element["title"];
-    image = element["image"];
+    image = ApiConstant.hostDiUrl + element['image'];
     catId = element["cat_id"];
     catName = element["cat_name"];
     author = element["author"] ?? 'ساسان صفری';

@@ -7,8 +7,8 @@ import 'package:thetech_getx/components/my_components.dart';
 import 'package:thetech_getx/components/my_string.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/services/dio_services.dart';
-import 'package:thetech_getx/views/home_screen.dart';
-import 'package:thetech_getx/views/profile_screen.dart';
+import 'package:thetech_getx/views/main_screen/home_screen.dart';
+import 'package:thetech_getx/views/main_screen/profile_screen.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();
 
@@ -18,8 +18,6 @@ class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    DioServices().getMethode(ApiConstant.getHomeItems);
-
     var size = MediaQuery.of(context).size;
     var textTheme = Theme.of(context).textTheme;
     double bodyMargin = size.width / 10;

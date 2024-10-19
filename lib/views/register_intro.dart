@@ -101,6 +101,7 @@ class RegisterIntro extends StatelessWidget {
     );
   }
 
+  //TODO بالا آوردن یک باتم شیت
   Future<dynamic> _activerCodeBottomSheet(
       BuildContext context, Size size, TextTheme textTheme) {
     return showModalBottomSheet(
