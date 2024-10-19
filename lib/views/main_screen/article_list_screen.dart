@@ -9,7 +9,8 @@ import 'package:thetech_getx/controller/single_article_controller.dart';
 import 'package:thetech_getx/views/single_screen.dart';
 
 class ArticleListScreen extends StatelessWidget {
-  ArticleListScreen({super.key});
+  String titleAppBar;
+  ArticleListScreen(this.titleAppBar, {super.key});
   ListArticleController listArticleController =
       Get.put(ListArticleController());
   SingleArticleController singleArticleController =
@@ -21,7 +22,7 @@ class ArticleListScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: appBar('مقالات جدید'),
+        appBar: appBar(titleAppBar),
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(

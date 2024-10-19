@@ -305,7 +305,8 @@ class _SingleScreenState extends State<SingleScreen> {
             await Get.find<ListArticleController>()
                 .getArticleListwithTagsId(tagId);
 
-            Get.to(ArticleListScreen());
+            Get.to(ArticleListScreen(
+                singleArticleController.tagsModelList[index].title!));
           },
           child: Padding(
             padding: EdgeInsets.fromLTRB(0, 8, index == 0 ? 8 : 15, 8),

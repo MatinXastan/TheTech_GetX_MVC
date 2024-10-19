@@ -157,7 +157,7 @@ class MyApp extends StatelessWidget {
       ], */
       // home: const SplashScreen(),
       //home: SingleScreen(),
-      home: ArticleListScreen(),
+      home: ArticleListScreen('مقالات جدید'),
     );
   }
 }
