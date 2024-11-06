@@ -3,9 +3,11 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/constant/my_colors.dart';
+import 'package:thetech_getx/constant/my_string.dart';
 import 'package:thetech_getx/components/text_style.dart';
 import 'package:thetech_getx/controller/home_screen_controller.dart';
+import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/models/fake_data.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -29,7 +31,7 @@ class TechDivider extends StatelessWidget {
 }
 
 class MainTags extends StatelessWidget {
-  MainTags({
+  const MainTags({
     super.key,
     required this.textTheme,
     required this.index,
@@ -87,7 +89,7 @@ class MainTags extends StatelessWidget {
 }
 
 class RegesterMainTags extends StatelessWidget {
-  RegesterMainTags({
+  const RegesterMainTags({
     super.key,
     required this.textTheme,
     required this.index,
@@ -199,13 +201,53 @@ PreferredSize appBar(String title) {
               color: SolidColors.primaryColor.withBlue(100),
               shape: BoxShape.circle,
             ),
-            child: Icon(
-              Icons.keyboard_arrow_right,
-              color: Colors.white,
+            child: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: Icon(
+                Icons.keyboard_arrow_right,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
       ),
     ),
   );
+}
+
+class SeeMoreBlog extends StatelessWidget {
+  const SeeMoreBlog({
+    super.key,
+    required this.bodyMargin,
+    required this.textTheme,
+    required this.title,
+  });
+
+  final double bodyMargin;
+  final TextTheme textTheme;
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(right: bodyMargin, bottom: 8),
+      child: Row(
+        children: [
+          ImageIcon(
+            AssetImage(Assets.icons.bluePen.path),
+            color: SolidColors.seeMore,
+          ),
+          const SizedBox(
+            width: 8,
+          ),
+          Text(
+            title,
+            style: textTheme.headlineSmall,
+          ),
+        ],
+      ),
+    );
+  }
 }

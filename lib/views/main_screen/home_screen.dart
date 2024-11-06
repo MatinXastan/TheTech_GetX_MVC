@@ -1,14 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
-import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/binding.dart';
+import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/components/my_components.dart';
-import 'package:thetech_getx/components/my_string.dart';
+import 'package:thetech_getx/constant/my_string.dart';
 import 'package:thetech_getx/controller/home_screen_controller.dart';
+import 'package:thetech_getx/controller/article/list_article_controller.dart';
+import 'package:thetech_getx/controller/article/single_article_controller.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/models/fake_data.dart';
+import 'package:thetech_getx/views/articles_screens/article_list_screen.dart';
+import 'package:thetech_getx/views/articles_screens/single_screen.dart';
 
+// ignore: must_be_immutable
 class HomeScreen extends StatelessWidget {
   HomeScreen({
     super.key,
@@ -18,6 +23,11 @@ class HomeScreen extends StatelessWidget {
   });
 
   HomeScreenController homeScreenController = Get.put(HomeScreenController());
+  SingleArticleController singleArticleController =
+      Get.put(SingleArticleController());
+
+  ListArticleController listArticleController =
+      Get.put(ListArticleController());
 
   final Size size;
   final TextTheme textTheme;
@@ -30,6 +40,7 @@ class HomeScreen extends StatelessWidget {
       child: Obx(
         () => Padding(
           padding: const EdgeInsets.only(top: 16, bottom: 60),
+          // ignore: unrelated_type_equality_checks
           child: homeScreenController.loading == false
               ? Column(
                   children: [
@@ -41,7 +52,15 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(
                       height: 32,
                     ),
-                    SeeMoreBlog(bodyMargin: bodyMargin, textTheme: textTheme),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(ArticleListScreen('داغ ترین نوشته ها'));
+                        },
+                        child: SeeMoreBlog(
+                          bodyMargin: bodyMargin,
+                          textTheme: textTheme,
+                          title: MyStrings.viewHotestBlog,
+                        )),
                     topVisited(),
                     SeeMorePodcast(
                         bodyMargin: bodyMargin, textTheme: textTheme),
@@ -56,26 +75,31 @@ class HomeScreen extends StatelessWidget {
 
   Widget topVisited() {
     return SizedBox(
-      height: size.height / 3.5,
-      child: Obx(
-        () => ListView.builder(
-          itemCount: homeScreenController.topVisitedList.length,
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Padding(
+      height: Get.height / 3.5,
+      child: ListView.builder(
+        itemCount: homeScreenController.topVisitedList.length,
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () async {
+              await singleArticleController.getArticleInfo(
+                  homeScreenController.topVisitedList[index].id);
+
+              Get.to(SingleScreen(), binding: ArticleBinding());
+            },
+            child: Padding(
               padding: EdgeInsets.only(right: index == 0 ? bodyMargin : 15),
               child: Column(
                 children: [
                   SizedBox(
-                    height: size.height / 5.3,
-                    width: size.width / 2.4,
+                    height: Get.height / 5.3,
+                    width: Get.width / 2.4,
                     child: Stack(
                       children: [
                         Container(
-                          decoration: BoxDecoration(
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(16)),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(16)),
                           ),
                           foregroundDecoration: const BoxDecoration(
                               borderRadius:
@@ -156,9 +180,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }
@@ -193,7 +217,7 @@ class HomeScreen extends StatelessWidget {
                                 image: imageProvider, fit: BoxFit.cover),
                           ),
                         ),
-                        placeholder: (context, url) => Loading(),
+                        placeholder: (context, url) => const Loading(),
                         errorWidget: (context, url, error) => const Icon(
                           Icons.image_not_supported_outlined,
                           size: 50,
@@ -302,14 +326,22 @@ class HomeScreen extends StatelessWidget {
         itemCount: tagList.length,
         scrollDirection: Axis.horizontal,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
-            child: MainTags(
-              textTheme: textTheme,
-              index: index,
-              /* hashTagList: tagList,
-              whichOneIsTag: whichTags.isHashtagMain, */
-              /* onTap: (String) {}, */
+          return GestureDetector(
+            onTap: () {
+              listArticleController.getArticleListwithTagsId(
+                  homeScreenController.tagList[index].id!);
+              Get.to(ArticleListScreen('test'));
+            },
+            child: Padding(
+              padding:
+                  EdgeInsets.fromLTRB(0, 8, index == 0 ? bodyMargin : 15, 8),
+              child: MainTags(
+                textTheme: textTheme,
+                index: index,
+                /* hashTagList: tagList,
+                whichOneIsTag: whichTags.isHashtagMain, */
+                /* onTap: (String) {}, */
+              ),
             ),
           );
         },
@@ -343,39 +375,6 @@ class SeeMorePodcast extends StatelessWidget {
           ),
           Text(
             MyStrings.viewHotestPodCasts,
-            style: textTheme.headlineSmall,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SeeMoreBlog extends StatelessWidget {
-  const SeeMoreBlog({
-    super.key,
-    required this.bodyMargin,
-    required this.textTheme,
-  });
-
-  final double bodyMargin;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(right: bodyMargin, bottom: 8),
-      child: Row(
-        children: [
-          ImageIcon(
-            AssetImage(Assets.icons.bluePen.path),
-            color: SolidColors.seeMore,
-          ),
-          const SizedBox(
-            width: 8,
-          ),
-          Text(
-            MyStrings.viewHotestBlog,
             style: textTheme.headlineSmall,
           ),
         ],

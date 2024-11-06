@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/components/my_components.dart';
-import 'package:thetech_getx/components/my_string.dart';
+import 'package:thetech_getx/constant/my_string.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/models/fake_data.dart';
 
@@ -84,7 +84,7 @@ class _MyCatsState extends State<MyCats> {
                               if (!selectedTags.contains(tagList[index])) {
                                 selectedTags.add(tagList[index]);
                               } else {
-                                print('the value has alreay exist');
+                                // print('the value has alreay exist');
                               }
                             });
                           },

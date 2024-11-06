@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:thetech_getx/components/api_constant.dart';
-import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/components/dimens.dart';
+import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/components/my_components.dart';
-import 'package:thetech_getx/components/my_string.dart';
+import 'package:thetech_getx/constant/my_string.dart';
+import 'package:thetech_getx/controller/register_controller.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
-import 'package:thetech_getx/services/dio_services.dart';
 import 'package:thetech_getx/views/main_screen/home_screen.dart';
 import 'package:thetech_getx/views/main_screen/profile_screen.dart';
+import 'package:thetech_getx/views/register/register_intro.dart';
 
 final GlobalKey<ScaffoldState> _key = GlobalKey();
 
+// ignore: must_be_immutable
 class MainScreen extends StatelessWidget {
   RxInt selectedPageIndex = 0.obs;
 
   MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+   
     var textTheme = Theme.of(context).textTheme;
-    double bodyMargin = size.width / 10;
+    
 
     return SafeArea(
       child: Scaffold(
@@ -28,7 +30,7 @@ class MainScreen extends StatelessWidget {
         drawer: Drawer(
           backgroundColor: const Color.fromARGB(237, 255, 255, 255),
           child: Padding(
-            padding: EdgeInsets.only(left: bodyMargin, right: bodyMargin),
+            padding: EdgeInsets.only(left: Dimens.bodyMargin, right: Dimens.bodyMargin),
             child: ListView(
               children: [
                 DrawerHeader(
@@ -104,7 +106,7 @@ class MainScreen extends StatelessWidget {
                   color: Colors.black,
                 ),
               ),
-              Assets.images.splash.image(height: size.height / 13.6),
+              Assets.images.splash.image(height: Dimens.size.height / 13.6),
               const Icon(
                 Icons.search,
                 color: Colors.black,
@@ -120,15 +122,15 @@ class MainScreen extends StatelessWidget {
                 index: selectedPageIndex.value,
                 children: [
                   HomeScreen(
-                      size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                      size: Dimens.size, textTheme: textTheme, bodyMargin: Dimens.bodyMargin),
                   ProfileScreen(
-                      size: size, textTheme: textTheme, bodyMargin: bodyMargin),
+                      size: Dimens.size, textTheme: textTheme, bodyMargin: Dimens.bodyMargin),
                 ],
               ),
             )),
             ButtomNavigation(
-              size: size,
-              bodyMargin: bodyMargin,
+              size: Dimens.size,
+              bodyMargin: Dimens.bodyMargin,
               changeScreen: (int value) {
                 selectedPageIndex.value = value;
               },
@@ -140,8 +142,9 @@ class MainScreen extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class ButtomNavigation extends StatelessWidget {
-  const ButtomNavigation({
+  ButtomNavigation({
     super.key,
     required this.size,
     required this.bodyMargin,
@@ -192,7 +195,9 @@ class ButtomNavigation extends StatelessWidget {
                       color: Colors.white,
                     )),
                 IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.find<RegisterController>().toggleLogin();
+                    },
                     icon: ImageIcon(
                       AssetImage(
                         Assets.icons.write.path,

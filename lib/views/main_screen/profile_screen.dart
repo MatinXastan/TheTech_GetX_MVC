@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/components/my_components.dart';
-import 'package:thetech_getx/components/my_string.dart';
+import 'package:thetech_getx/constant/my_string.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 
 class ProfileScreen extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:thetech_getx/components/api_constant.dart';
+import 'package:thetech_getx/constant/api_constant.dart';
 
 class ArticleInfoModel {
   String? id;
@@ -13,14 +13,26 @@ class ArticleInfoModel {
   String? createdAt;
   bool? isFavorite;
 
-  ArticleInfoModel();
+  ArticleInfoModel({
+    this.id,
+    this.title,
+    this.content,
+    this.image,
+    this.catId,
+    this.catName,
+    this.author,
+    this.view,
+    this.status,
+    this.createdAt,
+    this.isFavorite,
+  });
 
   ArticleInfoModel.fromJson(Map<String, dynamic> element) {
     var info = element['info'];
     id = info['id'];
     title = info['title'];
     content = info['content'];
-    image = ApiConstant.hostDiUrl + info['image'];
+    image = ApiUrlConstant.hostDiUrl + info['image'];
     catId = info['cat_id'];
     catName = info['cat_name'];
     author = info['author'];

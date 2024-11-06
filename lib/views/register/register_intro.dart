@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:thetech_getx/components/my_string.dart';
+import 'package:get/get.dart';
+import 'package:thetech_getx/constant/my_string.dart';
+import 'package:thetech_getx/controller/register_controller.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/views/my_cats.dart';
 
+// ignore: must_be_immutable
 class RegisterIntro extends StatelessWidget {
-  const RegisterIntro({super.key});
-
+  RegisterIntro({super.key});
+  // RegisterController registerController = Get.put(RegisterController());
+  var registerController = Get.find<RegisterController>();
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
@@ -24,6 +28,7 @@ class RegisterIntro extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 16),
+                //TODO rechText
                 child: RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
@@ -33,7 +38,7 @@ class RegisterIntro extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 32),
                 child: ElevatedButton(
                     onPressed: () {
-                      _showBottomSheet(context, size, textTheme);
+                      _showEmailBottomSheet(context, size, textTheme);
                     },
                     child: const Text(
                       'بزن بریم',
@@ -47,7 +52,7 @@ class RegisterIntro extends StatelessWidget {
     );
   }
 
-  Future<dynamic> _showBottomSheet(
+  Future<dynamic> _showEmailBottomSheet(
       BuildContext context, Size size, TextTheme textTheme) {
     return showModalBottomSheet(
       isScrollControlled: true,
@@ -58,7 +63,7 @@ class RegisterIntro extends StatelessWidget {
           padding:
               EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
           child: Container(
-            height: size.height / 2,
+            height: Get.height / 2,
             decoration: const BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.only(
@@ -75,6 +80,7 @@ class RegisterIntro extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(24),
                     child: TextField(
+                      controller: registerController.emailTextEditingController,
                       style: textTheme.labelSmall,
                       textAlign: TextAlign.center,
                       onChanged: (value) {},
@@ -85,6 +91,7 @@ class RegisterIntro extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () {
+                        registerController.register();
                         Navigator.pop(context);
                         _activerCodeBottomSheet(context, size, textTheme);
                       },
@@ -130,6 +137,8 @@ class RegisterIntro extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(24),
                     child: TextField(
+                      controller:
+                          registerController.activeCodeTextEditingController,
                       style: textTheme.labelSmall,
                       textAlign: TextAlign.center,
                       onChanged: (value) {},
@@ -139,8 +148,9 @@ class RegisterIntro extends StatelessWidget {
                   ),
                   ElevatedButton(
                       onPressed: () {
+                        registerController.verify();
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => MyCats(),
+                          builder: (context) => const MyCats(),
                         ));
                       },
                       child: const Text('ادامه',

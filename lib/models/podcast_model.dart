@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-import 'package:thetech_getx/components/api_constant.dart';
+import 'package:thetech_getx/constant/api_constant.dart';
 
 class PodcastModel {
   String? id;
@@ -22,7 +22,7 @@ class PodcastModel {
     return PodcastModel(
       id: json['id'] ?? '',
       title: json['title'] ?? '',
-      poster: ApiConstant.hostDiUrl + (json['poster'] ?? ''),
+      poster: ApiUrlConstant.hostDiUrl + (json['poster'] ?? ''),
       publisher: json['publisher'] ?? '',
       view: json['view'] ?? '',
       createdAt: json['created_at'] ?? '',

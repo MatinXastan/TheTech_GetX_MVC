@@ -2,37 +2,40 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/components/my_components.dart';
 import 'package:thetech_getx/components/text_style.dart';
-import 'package:thetech_getx/controller/list_article_controller.dart';
-import 'package:thetech_getx/controller/single_article_controller.dart';
+import 'package:thetech_getx/controller/article/list_article_controller.dart';
+import 'package:thetech_getx/controller/article/single_article_controller.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
-import 'package:thetech_getx/models/fake_data.dart';
-import 'package:thetech_getx/views/main_screen/article_list_screen.dart';
+import 'package:thetech_getx/views/articles_screens/article_list_screen.dart';
 
-class SingleScreen extends StatefulWidget {
-  SingleScreen({super.key});
+// class SingleScreen extends StatefulWidget {
+//   SingleScreen({super.key});
 
-  @override
-  State<SingleScreen> createState() => _SingleScreenState();
-}
+//   @override
+//   State<SingleScreen> createState() => _SingleScreenState();
+// }
 
-class _SingleScreenState extends State<SingleScreen> {
-  SingleArticleController singleArticleController =
+// ignore: must_be_immutable
+class SingleScreen extends StatelessWidget {
+/*   SingleArticleController singleArticleController =
       Get.put(SingleArticleController());
-  @override
+ */
+
+  var singleArticleController = Get.find<SingleArticleController>();
+  SingleScreen({super.key});
+  /* @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
-    singleArticleController.getArticleInfo();
+    // singleArticleController.getArticleInfo();
     // اینجا آیدی صفر نیست خود واقعی آیدی برمیگردونه
-  }
+  } */
 
   @override
   Widget build(BuildContext context) {
     var textTheme = Theme.of(context).textTheme;
-    var size = MediaQuery.of(context).size;
 
     return SafeArea(
         child: Scaffold(
@@ -40,9 +43,9 @@ class _SingleScreenState extends State<SingleScreen> {
         physics: const BouncingScrollPhysics(),
         child: Obx(
           () => singleArticleController.articleInfoModel.value.title == null
-              ? Loading()
+              ? SizedBox(height: Get.height, child: const Loading())
               : singleArticleController.loading.value
-                  ? Loading()
+                  ? SizedBox(height: Get.height, child: const Loading())
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -69,32 +72,37 @@ class _SingleScreenState extends State<SingleScreen> {
                                         begin: Alignment.topCenter,
                                         colors: GradientColors
                                             .singleAppbarGradiant)),
-                                child: const Row(
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
-                                    Icon(
-                                      Icons.arrow_back,
-                                      color: Colors.white,
-                                      size: 24,
+                                    GestureDetector(
+                                      onTap: () {
+                                        Get.back();
+                                      },
+                                      child: const Icon(
+                                        Icons.arrow_back,
+                                        color: Colors.white,
+                                        size: 24,
+                                      ),
                                     ),
-                                    Expanded(child: SizedBox()),
-                                    Icon(
+                                    const Expanded(child: SizedBox()),
+                                    const Icon(
                                       Icons.bookmark_border_rounded,
                                       color: Colors.white,
                                       size: 24,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
-                                    Icon(
+                                    const Icon(
                                       Icons.share,
                                       color: Colors.white,
                                       size: 24,
                                     ),
-                                    SizedBox(
+                                    const SizedBox(
                                       width: 20,
                                     ),
                                   ],
@@ -177,7 +185,7 @@ class _SingleScreenState extends State<SingleScreen> {
                         const SizedBox(
                           height: 8,
                         ),
-                        testDirectionPostSingleScreen(size, textTheme)
+                        testDirectionPostSingleScreen(textTheme)
                       ],
                     ),
         ),
@@ -185,16 +193,20 @@ class _SingleScreenState extends State<SingleScreen> {
     ));
   }
 
-  SizedBox testDirectionPostSingleScreen(Size size, TextTheme textTheme) {
+  SizedBox testDirectionPostSingleScreen(TextTheme textTheme) {
     return SizedBox(
-      height: size.height / 3.5,
-      child: Obx(
-        () => ListView.builder(
-          itemCount: singleArticleController.articleModelList.length,
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (context, index) {
-            return Padding(
+      height: Get.height / 3.5,
+      child: ListView.builder(
+        itemCount: singleArticleController.relatedList.length,
+        physics: const BouncingScrollPhysics(),
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return GestureDetector(
+            onTap: () {
+              singleArticleController.getArticleInfo(
+                  singleArticleController.relatedList[index].id);
+            },
+            child: Padding(
               padding: EdgeInsets.only(right: index == 0 ? 8 : 15),
               child: Column(
                 children: [
@@ -216,7 +228,7 @@ class _SingleScreenState extends State<SingleScreen> {
                                   colors: GradientColors.blogPost)),
                           child: CachedNetworkImage(
                             imageUrl: singleArticleController
-                                .articleModelList[index].image!,
+                                .relatedList[index].image!,
                             imageBuilder: (context, imageProvider) => Container(
                               decoration: BoxDecoration(
                                 borderRadius: const BorderRadius.all(
@@ -243,14 +255,14 @@ class _SingleScreenState extends State<SingleScreen> {
                             children: [
                               Text(
                                 singleArticleController
-                                    .articleModelList[index].author!,
+                                    .relatedList[index].author!,
                                 style: textTheme.titleLarge,
                               ),
                               Row(
                                 children: [
                                   Text(
                                     singleArticleController
-                                        .articleModelList[index].view!,
+                                        .relatedList[index].view!,
                                     style: textTheme.titleLarge,
                                   ),
                                   const SizedBox(
@@ -273,9 +285,9 @@ class _SingleScreenState extends State<SingleScreen> {
                     height: 8,
                   ),
                   SizedBox(
-                    width: size.width / 2.4,
+                    width: Get.width / 2.4,
                     child: Text(
-                      singleArticleController.articleModelList[index].title!,
+                      singleArticleController.relatedList[index].title!,
                       style: const TextStyle(
                         fontSize: 14,
                         color: Colors.black,
@@ -286,9 +298,9 @@ class _SingleScreenState extends State<SingleScreen> {
                   ),
                 ],
               ),
-            );
-          },
-        ),
+            ),
+          );
+        },
       ),
     );
   }

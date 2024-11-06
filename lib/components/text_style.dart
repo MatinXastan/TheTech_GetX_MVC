@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:thetech_getx/components/my_colors.dart';
+import 'package:thetech_getx/constant/my_colors.dart';
 
 TextStyle appBarTextStyle = const TextStyle(
     fontFamily: 'dana',

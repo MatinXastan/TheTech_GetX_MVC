@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:thetech_getx/components/api_constant.dart';
+import 'package:thetech_getx/constant/api_constant.dart';
 import 'package:thetech_getx/models/article_model.dart';
 import 'package:thetech_getx/services/dio_services.dart';
 
@@ -14,7 +14,8 @@ class ListArticleController extends GetxController {
 
   getList() async {
     loading.value = true;
-    final response = await DioServices().getMethode(ApiConstant.getArticleList);
+    final response =
+        await DioServices().getMethode(ApiUrlConstant.getArticleList);
     if (response.statusCode == 200) {
       response.data.forEach((element) {
         articleList.add(ArticleModel.fromJson(element));
@@ -28,7 +29,7 @@ class ListArticleController extends GetxController {
     articleList.clear();
     loading.value = true;
     final response = await DioServices().getMethode(
-        '${ApiConstant.baseUrl}article/get.php?command=get_articles_with_tag_id&tag_id=$id&user_id=');
+        '${ApiUrlConstant.baseUrl}article/get.php?command=get_articles_with_tag_id&tag_id=$id&user_id=');
     if (response.statusCode == 200) {
       response.data.forEach((element) {
         articleList.add(ArticleModel.fromJson(element));
