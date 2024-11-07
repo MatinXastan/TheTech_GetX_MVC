@@ -254,7 +254,7 @@ class PodcastSingle extends StatelessWidget {
                           },
                           child: Obx(
                             () => Icon(
-                              controller.player.playing
+                              controller.playState.value
                                   ? Icons.pause_circle_filled
                                   : Icons.play_circle_filled,
                               color: Colors.white,
@@ -276,9 +276,18 @@ class PodcastSingle extends StatelessWidget {
                         const SizedBox(),
                         GestureDetector(
                           onTap: () {},
-                          child: const Icon(
-                            Icons.refresh,
-                            color: Colors.white,
+                          child: Obx(
+                            () => GestureDetector(
+                              onTap: () {
+                                controller.setLoopMode();
+                              },
+                              child: Icon(
+                                Icons.repeat,
+                                color: controller.isLoopAll.value
+                                    ? Colors.blue
+                                    : Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ],

@@ -18,6 +18,7 @@ class SinglePodcastController extends GetxController {
 
   late var playList;
   RxBool playState = false.obs;
+  RxBool isLoopAll = false.obs;
 
   @override
   Future<void> onInit() async {
@@ -72,5 +73,15 @@ class SinglePodcastController extends GetxController {
         }
       },
     );
+  }
+
+  setLoopMode() {
+    if (isLoopAll.value) {
+      isLoopAll.value = false;
+      player.setLoopMode(LoopMode.off);
+    } else {
+      isLoopAll.value = true;
+      player.setLoopMode(LoopMode.all);
+    }
   }
 }
