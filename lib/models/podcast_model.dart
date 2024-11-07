@@ -22,7 +22,7 @@ class PodcastModel {
     return PodcastModel(
       id: json['id'] ?? '',
       title: json['title'] ?? '',
-      poster: ApiUrlConstant.hostDiUrl + (json['poster'] ?? ''),
+      poster: ApiUrlConstant.hostDlUrl + (json['poster'] ?? ''),
       publisher: json['publisher'] ?? '',
       view: json['view'] ?? '',
       createdAt: json['created_at'] ?? '',

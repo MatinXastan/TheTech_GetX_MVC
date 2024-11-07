@@ -12,6 +12,7 @@ import 'package:thetech_getx/views/articles_screens/manage_article.dart';
 import 'package:thetech_getx/views/articles_screens/single_manage_article.dart';
 import 'package:thetech_getx/views/main_screen/main_screen.dart';
 import 'package:thetech_getx/views/articles_screens/single_screen.dart';
+import 'package:thetech_getx/views/podcast/single_podcast.dart';
 import 'package:thetech_getx/views/splash_screen.dart';
 
 Future<void> main() async {
@@ -70,8 +71,13 @@ class MyApp extends StatelessWidget {
           page: () => SingleManageArticle(),
           binding: ArticleManagerBinding(),
         ),
+        GetPage(
+          name: NameRoute.routeSinglePodcast,
+          page: () => PodcastSingle(),
+        ),
       ],
       home: SplashScreen(),
+      // home: SinglePodcast(),
     );
   }
 
@@ -200,8 +206,10 @@ class MyApp extends StatelessWidget {
 }
 
 class NameRoute {
+  NameRoute._();
   static String routeMainScreen = '/MainScreen';
   static String routeSingleArticle = '/SingleArticle';
   static String routeSingleManageArticle = '/SingleManageArticle';
+  static String routeSinglePodcast = '/routeSinglePodcast';
   static String routeManageArticle = '/ManageArticle';
 }

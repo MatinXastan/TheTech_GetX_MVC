@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:thetech_getx/components/decorations.dart';
 import 'package:thetech_getx/components/dimens.dart';
 import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/components/my_components.dart';
@@ -20,9 +21,7 @@ class MainScreen extends StatelessWidget {
   MainScreen({super.key});
   @override
   Widget build(BuildContext context) {
-   
     var textTheme = Theme.of(context).textTheme;
-    
 
     return SafeArea(
       child: Scaffold(
@@ -30,7 +29,8 @@ class MainScreen extends StatelessWidget {
         drawer: Drawer(
           backgroundColor: const Color.fromARGB(237, 255, 255, 255),
           child: Padding(
-            padding: EdgeInsets.only(left: Dimens.bodyMargin, right: Dimens.bodyMargin),
+            padding: EdgeInsets.only(
+                left: Dimens.bodyMargin, right: Dimens.bodyMargin),
             child: ListView(
               children: [
                 DrawerHeader(
@@ -122,9 +122,13 @@ class MainScreen extends StatelessWidget {
                 index: selectedPageIndex.value,
                 children: [
                   HomeScreen(
-                      size: Dimens.size, textTheme: textTheme, bodyMargin: Dimens.bodyMargin),
+                      size: Dimens.size,
+                      textTheme: textTheme,
+                      bodyMargin: Dimens.bodyMargin),
                   ProfileScreen(
-                      size: Dimens.size, textTheme: textTheme, bodyMargin: Dimens.bodyMargin),
+                      size: Dimens.size,
+                      textTheme: textTheme,
+                      bodyMargin: Dimens.bodyMargin),
                 ],
               ),
             )),
@@ -177,12 +181,7 @@ class ButtomNavigation extends StatelessWidget {
           child: Container(
             height: size.height / 8,
             width: size.width,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(18)),
-              gradient: LinearGradient(
-                colors: GradientColors.bottomNav,
-              ),
-            ),
+            decoration: MyDecorations.mainGradiant,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
