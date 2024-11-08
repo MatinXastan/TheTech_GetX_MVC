@@ -146,6 +146,7 @@ class PodcastSingle extends StatelessWidget {
 
                               controller.currentFileIndex.value =
                                   controller.player.currentIndex!;
+                              controller.timerCheck();
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -215,11 +216,18 @@ class PodcastSingle extends StatelessWidget {
                         progress: controller.progressValue.value,
                         total:
                             controller.player.duration ?? Duration(seconds: 0),
-                        onSeek: (position) {
+                        onSeek: (position) async {
                           controller.player.seek(position);
-                          controller.player.playing
-                              ? controller.startProgress()
-                              : controller.timer!.cancel();
+
+                          if (controller.player.playing) {
+                            controller.startProgress();
+                          } else if (position <= Duration(seconds: 0)) {
+                            await controller.player.seekToNext();
+                            controller.currentFileIndex.value =
+                                controller.player.currentIndex!;
+
+                            controller.timerCheck();
+                          }
                         },
                       ),
                     ),
@@ -231,6 +239,8 @@ class PodcastSingle extends StatelessWidget {
                             await controller.player.seekToNext();
                             controller.currentFileIndex.value =
                                 controller.player.currentIndex!;
+
+                            controller.timerCheck();
                           },
                           child: const Icon(
                             Icons.skip_next,
@@ -267,6 +277,8 @@ class PodcastSingle extends StatelessWidget {
                             controller.player.seekToPrevious();
                             controller.currentFileIndex.value =
                                 controller.player.currentIndex!;
+
+                            controller.timerCheck();
                           },
                           child: const Icon(
                             Icons.skip_previous,

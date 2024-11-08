@@ -84,4 +84,14 @@ class SinglePodcastController extends GetxController {
       player.setLoopMode(LoopMode.all);
     }
   }
+
+  timerCheck() {
+    if (player.playing) {
+      startProgress();
+    } else {
+      timer!.cancel();
+      progressValue.value = Duration(seconds: 0);
+      bufferedValue.value = Duration(seconds: 0);
+    }
+  }
 }
