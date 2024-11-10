@@ -8,6 +8,7 @@ import 'package:thetech_getx/controller/article/manage_article_controller.dart';
 import 'package:thetech_getx/controller/register_controller.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/main.dart';
+import 'package:thetech_getx/route_manager/names.dart';
 import 'package:thetech_getx/views/my_cats.dart';
 
 // ignore: must_be_immutable

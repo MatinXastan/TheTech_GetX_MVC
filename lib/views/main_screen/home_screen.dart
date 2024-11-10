@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thetech_getx/binding.dart';
+import 'package:thetech_getx/route_manager/binding.dart';
 import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/components/my_components.dart';
 import 'package:thetech_getx/constant/my_string.dart';
@@ -11,6 +11,7 @@ import 'package:thetech_getx/controller/article/single_article_controller.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/main.dart';
 import 'package:thetech_getx/models/fake_data.dart';
+import 'package:thetech_getx/route_manager/names.dart';
 import 'package:thetech_getx/views/articles_screens/article_list_screen.dart';
 import 'package:thetech_getx/views/articles_screens/single_screen.dart';
 import 'package:thetech_getx/views/podcast/single_podcast.dart';

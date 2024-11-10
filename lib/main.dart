@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:thetech_getx/binding.dart';
+import 'package:thetech_getx/route_manager/binding.dart';
 import 'package:thetech_getx/constant/my_colors.dart';
 import 'package:thetech_getx/my_http_overrides.dart';
+import 'package:thetech_getx/route_manager/names.dart';
+import 'package:thetech_getx/route_manager/pages.dart';
 import 'package:thetech_getx/views/articles_screens/html_content_eitor.dart';
 import 'package:thetech_getx/views/articles_screens/manage_article.dart';
 import 'package:thetech_getx/views/articles_screens/single_manage_article.dart';
@@ -40,43 +42,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       locale: const Locale('fa'),
       theme: lightThemeData(),
-      /* localizationsDelegates: const [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: const [
-        Locale('fa', ''), // English
-      ], */
-      // home: const SplashScreen(),
-      //home: SingleScreen(),
-      getPages: [
-        GetPage(
-          name: NameRoute.routeMainScreen,
-          page: () => MainScreen(),
-          binding: RegisterBinding(),
-        ),
-        GetPage(
-          name: NameRoute.routeSingleArticle,
-          page: () => SingleScreen(),
-          binding: ArticleBinding(),
-        ),
-        GetPage(
-          name: NameRoute.routeManageArticle,
-          page: () => ManageArticle(),
-          binding: ArticleManagerBinding(),
-        ),
-        GetPage(
-          name: NameRoute.routeSingleManageArticle,
-          page: () => SingleManageArticle(),
-          binding: ArticleManagerBinding(),
-        ),
-        GetPage(
-          name: NameRoute.routeSinglePodcast,
-          page: () => PodcastSingle(),
-        ),
-      ],
-      home: SplashScreen(),
+      initialRoute: NameRoute.initialRoute,
+      getPages: Pages.pages,
+      // home: SplashScreen(),
       // home: SinglePodcast(),
     );
   }
@@ -203,13 +171,4 @@ class MyApp extends StatelessWidget {
       useMaterial3: true,
     );
   }
-}
-
-class NameRoute {
-  NameRoute._();
-  static String routeMainScreen = '/MainScreen';
-  static String routeSingleArticle = '/SingleArticle';
-  static String routeSingleManageArticle = '/SingleManageArticle';
-  static String routeSinglePodcast = '/routeSinglePodcast';
-  static String routeManageArticle = '/ManageArticle';
 }

@@ -9,6 +9,7 @@ import 'package:thetech_getx/constant/my_string.dart';
 import 'package:thetech_getx/components/storage_const.dart';
 import 'package:thetech_getx/gen/assets.gen.dart';
 import 'package:thetech_getx/main.dart';
+import 'package:thetech_getx/route_manager/names.dart';
 import 'package:thetech_getx/services/dio_services.dart';
 import 'package:thetech_getx/views/main_screen/main_screen.dart';
 import 'package:thetech_getx/views/register/register_intro.dart';
